@@ -1,1 +1,29 @@
-(ns aoc.core)
+(ns aoc.core
+  (:require [clojure.java.io :as io]
+            [clojure.string :as s]))
+
+
+(def d1-input (io/resource "day1.txt"))
+
+
+(defn- group-elves [elves]
+  (reduce (fn [acc item]
+            (let [rest (pop acc)
+                  items (last acc)]
+              (prn items)
+              (if (s/blank? item)
+                (conj acc [])
+                (conj rest (conj items (Integer/parseInt item))))))
+          [[]]
+          elves))
+
+
+(defn- sum-calories [items]
+  (map #(reduce + %) items))
+
+(defn day1 []
+  (with-open [r (io/reader d1-input)]
+    (let [c (line-seq r)
+          d (into [] c)
+          elf-groups (group-elves d)]
+      (first (sort > (sum-calories elf-groups))))))
