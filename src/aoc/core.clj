@@ -21,9 +21,13 @@
 (defn- sum-calories [items]
   (map #(reduce + %) items))
 
-(defn day1 []
+(defn- sorted-elves []
   (with-open [r (io/reader d1-input)]
     (let [c (line-seq r)
           d (into [] c)
           elf-groups (group-elves d)]
-      (first (sort > (sum-calories elf-groups))))))
+      (sort > (sum-calories elf-groups)))))
+
+
+(defn day1 []
+  (first (sorted-elves)))
