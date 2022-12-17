@@ -28,6 +28,11 @@
           elf-groups (group-elves d)]
       (sort > (sum-calories elf-groups)))))
 
+(def ^:private elves (vec (sorted-elves)))
 
-(defn day1 []
-  (first (sorted-elves)))
+
+(defn top []
+  (first elves))
+
+(defn topn [n]
+  (subvec elves 0 n))
